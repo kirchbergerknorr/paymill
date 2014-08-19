@@ -1,0 +1,98 @@
+<?php $_code = $this->getMethodCode(); ?>
+<ul class="form-list" id="payment_form_<?php echo $_code ?>" style="display:none;">
+    <li>
+        <?php echo $this->getCreditCardLogosDisplay();?>
+    </li>
+    <li>
+        <label for="<?php echo $_code ?>_holdername" class="required"><em>*</em><?php echo $this->__("paymill_Holder") ?></label>
+        <div class="input-box">
+            <input value="<?php echo $this->getPaymentEntry($_code, 'card_holder'); ?>" type="text" id="<?php echo $_code ?>_holdername" class="input-text paymill-validate-cc-holder required-entry"/>
+        </div>
+    </li>
+    <li>
+        <label for="<?php echo $_code ?>_number" class="required"><em>*</em><?php echo $this->__("paymill_Number") ?></label>
+        <div class="input-box">
+            <input value="<?php echo $this->getPaymentEntry($_code, 'cc_number'); ?>" type="text" id="<?php echo $_code ?>_number" class="input-text paymill-validate-cc-number required-entry"/>
+        </div>
+    </li>
+    <li>
+        <label for="<?php echo $_code ?>_expiry_month" class="required"><em>*</em><?php echo $this->__("paymill_Date") ?></label>
+        <div class="input-box">
+            <div class="v-fix">
+                <select id="<?php echo $_code ?>_expiry_month" class="month paymill-validate-cc-expdate-month required-entry">
+                    <?php foreach ($this->getPaymillCcMonths() as $k => $v): ?>
+                        <option value="<?php echo $k ? $k : '' ?>"<?php if($this->isPaymentDataAvailable($_code) && $this->getPaymentEntry($_code, 'expire_month') == $k): ?> selected="selected"<?php else: ?><?php if ($k == $this->getInfoData($_code . '_expiry_month')): ?> selected="selected"<?php endif ?><?php endif ?>><?php echo $v ?></option>
+                    <?php endforeach ?>
+                </select>
+            </div>
+            <div class="v-fix">
+                <select id="<?php echo $_code ?>_expiry_year" class="year paymill-validate-cc-expdate-year required-entry">
+                    <?php foreach ($this->getPaymillCcYears() as $k => $v): ?>
+                        <option value="<?php echo $k ? $k : '' ?>"<?php if($this->isPaymentDataAvailable($_code) && $this->getPaymentEntry($_code, 'expire_year') == $k): ?> selected="selected"<?php if ($k == $this->getInfoData($_code . '_expiry_year')): ?> selected="selected"<?php endif ?><?php endif ?>><?php echo $v ?></option>
+                    <?php endforeach ?>
+                </select>
+            </div>
+        </div>
+    </li>
+    <li>
+        <label for="<?php echo $_code ?>_cvc" class="required"><em>*</em><?php echo $this->__('Card Verification Number') ?></label>
+        <div class="input-box">
+            <div class="v-fix">
+                <input type="text" title="<?php echo $this->__('Card Verification Number') ?>" class="input-text cvv paymill-validate-cc-cvc" id="<?php echo $_code ?>_cvc" name="payment[cc_cid]" value="<?php echo $this->getPaymentEntry($_code, 'cvc'); ?>" />
+            </div>
+            <a href="#" class="cvv-what-is-this"><?php echo $this->__('What is this?') ?></a>
+        </div>
+    </li>
+    <li>
+        <input class="paymill-payment-token-cc paymill-validate-cc-token" name="payment[paymill-payment-token-cc]" id="payment[paymill-payment-token-cc]" type="hidden" />
+        <input class="paymill_3ds_cancel" type="hidden" value="<?php echo $this->__("paymill_3ds_cancel"); ?>"/>
+        <input class="paymill-payment-token-url-cc" type="hidden" value="<?php echo  $this->getUrl('paymill/token/total', array('_secure'=>true));  ?>"/>
+        <input class="paymill-payment-token-log-cc" type="hidden" value="<?php echo  $this->getUrl('paymill/token/log', array('_secure'=>true));  ?>"/>
+        <input class="paymill-payment-currency-cc" type="hidden" value="<?php echo Mage::helper('paymill/paymentHelper')->getCurrency(Mage::getSingleton('checkout/session')->getQuote()); ?>"/>
+        <input class="paymill-option-debug-cc" type="hidden" value="<?php echo Mage::helper('paymill/optionHelper')->isInDebugMode(); ?>"/>
+        <input class="paymill-info-public_key-cc" type="hidden" value="<?php echo Mage::helper('paymill/optionHelper')->getPublicKey(); ?>"/>
+        <input class="paymill-info-fastCheckout-cc" type="hidden" value="<?php echo $this->isNormalCheckout($_code); ?>"/>
+        <input class="paymill-payment-error-number" type="hidden" value="<?php echo $this->__("paymill_error_text_invalid_number_cc");?>"/>
+        <input class="paymill-payment-error-holder" type="hidden" value="<?php echo $this->__("paymill_error_text_invalid_holder_cc"); ?>"/>
+        <input class="paymill-payment-error-expdate" type="hidden" value="<?php echo $this->__("paymill_error_text_invalid_expdate"); ?>"/>
+        <input class="paymill-payment-error-cvc" type="hidden" value="<?php echo $this->__("paymill_error_text_invalid_cvc"); ?>"/>
+        <input class="paymill-payment-error-cc-token" type="hidden" value="<?php echo $this->__("paymill_error_text_invalid_token"); ?>"/>
+        <input class="PAYMILL_internal_server_error-cc" type="hidden" value="<?php echo $this->__("PAYMILL_internal_server_error"); ?>"/>
+        <input class="PAYMILL_invalid_public_key-cc" type="hidden" value="<?php echo $this->__("PAYMILL_invalid_public_key"); ?>"/>
+        <input class="PAYMILL_invalid_payment_data-cc" type="hidden" value="<?php echo $this->__("PAYMILL_invalid_payment_data"); ?>"/>
+        <input class="PAYMILL_unknown_error-cc" type="hidden" value="<?php echo $this->__("PAYMILL_unknown_error"); ?>"/>
+        <input class="PAYMILL_3ds_cancelled-cc" type="hidden" value="<?php echo $this->__("PAYMILL_3ds_cancelled"); ?>"/>
+        <input class="PAYMILL_field_invalid_card_number-cc" type="hidden" value="<?php echo $this->__("PAYMILL_field_invalid_card_number"); ?>"/>
+        <input class="PAYMILL_field_invalid_card_exp_year-cc" type="hidden" value="<?php echo $this->__("PAYMILL_field_invalid_card_exp_year"); ?>"/>
+        <input class="PAYMILL_field_invalid_card_exp_month-cc" type="hidden" value="<?php echo $this->__("PAYMILL_field_invalid_card_exp_month"); ?>"/>
+        <input class="PAYMILL_field_invalid_card_exp-cc" type="hidden" value="<?php echo $this->__("PAYMILL_field_invalid_card_exp"); ?>"/>
+        <input class="PAYMILL_field_invalid_card_cvc-cc" type="hidden" value="<?php echo $this->__("PAYMILL_field_invalid_card_cvc"); ?>"/>
+        <input class="PAYMILL_field_invalid_card_holder-cc" type="hidden" value="<?php echo $this->__("PAYMILL_field_invalid_card_holder"); ?>"/>
+        <input class="PAYMILL_field_invalid_amount_int-cc" type="hidden" value="<?php echo $this->__("PAYMILL_field_invalid_amount_int"); ?>"/>
+        <input class="PAYMILL_field_field_invalid_amount-cc" type="hidden" value="<?php echo $this->__("PAYMILL_field_field_invalid_amount"); ?>"/>
+        <input class="PAYMILL_field_field_field_invalid_currency-cc" type="hidden" value="<?php echo $this->__("PAYMILL_field_field_field_invalid_currency"); ?>"/>
+        <input class="PAYMILL_field_invalid_account_number-cc" type="hidden" value="<?php echo $this->__("PAYMILL_field_invalid_account_number"); ?>"/>
+        <input class="PAYMILL_field_invalid_account_holder-cc" type="hidden" value="<?php echo $this->__("PAYMILL_field_invalid_account_holder"); ?>"/>
+        <input class="PAYMILL_field_invalid_bank_code-cc" type="hidden" value="<?php echo $this->__("PAYMILL_field_invalid_bank_code"); ?>"/>
+        <input class="PAYMILL_field_invalid_iban-cc" type="hidden" value="<?php echo $this->__("PAYMILL_field_invalid_iban"); ?>"/>
+        <input class="PAYMILL_field_invalid_bic-cc" type="hidden" value="<?php echo $this->__("PAYMILL_field_invalid_bic"); ?>"/>
+        <input class="PAYMILL_field_invalid_country-cc" type="hidden" value="<?php echo $this->__("PAYMILL_field_invalid_country"); ?>"/>
+        <input class="PAYMILL_field_invalid_bank_data-cc" type="hidden" value="<?php echo $this->__("PAYMILL_field_invalid_bank_data"); ?>"/>
+    </li>
+    <?php if (!is_null(Mage::getStoreConfig('payment/paymill_creditcard/checkout_desc', Mage::app()->getStore()->getStoreId()))): ?>
+    <li>
+        <?php echo Mage::getStoreConfig('payment/paymill_creditcard/checkout_desc', Mage::app()->getStore()->getStoreId()); ?>
+    </li>
+    <?php endif; ?>
+</ul>
+
+<script type="text/javascript">
+    //<![CDATA[
+    paymillCc = new Paymill();
+    paymillCc.setPaymillCode('<?php echo $_code; ?>');
+    paymillCc.setCodes();
+    paymillCc.addPaymillEvents();
+    <?php echo $this->getCreditCardLogosBrand();?>
+    paymillCc.setBrandCreditcards(paymillCcBrands);
+    //]]>
+</script>

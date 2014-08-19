@@ -1,0 +1,5 @@
+app/etc/modules/Paymill_Paymill.xml app/etc/modules/Paymill_Paymill.xml
+app/code/community/Paymill/Paymill/* app/code/community/Paymill/Paymill/
+app/design/frontend/base/default/layout/paymill.xml app/design/frontend/base/default/layout/paymill.xml
+app/design/frontend/base/default/template/paymill/* app/design/frontend/base/default/template/paymill/
+app/locale/* app/locale/
