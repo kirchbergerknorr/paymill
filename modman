@@ -2,7 +2,7 @@ app/etc/modules/Paymill_Paymill.xml app/etc/modules/Paymill_Paymill.xml
 app/code/community/Paymill/Paymill/* app/code/community/Paymill/Paymill/
 app/design/frontend/base/default/layout/paymill.xml app/design/frontend/base/default/layout/paymill.xml
 app/design/frontend/base/default/template/paymill/* app/design/frontend/base/default/template/paymill/
-app/skin/frontend/base/default/css/paymill/* app/skin/frontend/base/default/css/paymill/
-app/skin/frontend/base/default/images/paymill/* app/skin/frontend/base/default/images/paymill/
+app/skin/frontend/base/default/css/* app/skin/frontend/base/default/css/
+app/skin/frontend/base/default/images/* app/skin/frontend/base/default/images/
 app/locale/* app/locale/
-app/js/paymill/* app/js/paymill/
+app/js/* app/js/
