@@ -5,4 +5,4 @@ app/design/frontend/base/default/template/paymill/* app/design/frontend/base/def
 app/skin/frontend/base/default/css/paymill/* app/skin/frontend/base/default/css/paymill/
 app/skin/frontend/base/default/images/paymill/* app/skin/frontend/base/default/images/paymill/
 app/locale/* app/locale/
-app/js/* app/js/
+app/js/paymill/* app/js/paymill/
