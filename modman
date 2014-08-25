@@ -30,3 +30,4 @@ app/locale/es_PE/Paymill_Paymill.csv app/locale/es_PE/Paymill_Paymill.csv
 app/locale/fr_FR/Paymill_Paymill.csv app/locale/fr_FR/Paymill_Paymill.csv
 app/locale/pt_BR/Paymill_Paymill.csv app/locale/pt_BR/Paymill_Paymill.csv
 js/paymill/* js/paymill/
+lib/Services/Paymill/* lib/Services/Paymill/
