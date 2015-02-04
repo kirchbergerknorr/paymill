@@ -116,7 +116,7 @@ class Paymill_Paymill_Helper_PaymentHelper extends Mage_Core_Helper_Abstract
         } else {
             $currency = $object->getOrderCurrencyCode();
         }
-        return $currency
+        return $currency;
     }
 
     /**
